@@ -1,0 +1,58 @@
+@using Microsoft.AspNetCore.Http.Extensions
+@model HalalDelivery.Models.AllProductsModel
+
+@{
+    ViewBag.Title = "Каталог";
+    Layout = "_Layout";
+}
+<br>
+<h2>Халяль - продукция</h2>
+<br>
+<div class="container">
+    <div class="row g-2">
+        @{
+            foreach (var Halal in Model.Halals)
+            {
+                <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                    <img src="../imgss/@{@Halal.Id}.jpeg" width="150" height="150" alt="...">
+                    <div>
+                        <a style="color:black; position: relative; left: 10px" asp-controller="Halal" asp-action="Index" asp-route-id="@Halal.Id">@Halal.Name</a>
+                        <p style="color: #232020; position: relative; left: 10px">@Halal.Description</p>
+                        <div style="position:absolute; bottom:10px;">
+                            <h4 style="position: relative; left: 10px;"><span class="badge rounded-pill bg-warning text-dark">@Halal.Cost $</span></h4>
+                            <a style="position: relative; left: 10px;" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Halal.Id" asp-route-url="@Context.Request.GetEncodedUrl()">
+                                <button type="button" class="btn btn-warning">В корзину</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+<br>
+
+<br>
+<h2>Дополнительные товары</h2>
+<br>
+<div class="container">
+<div class="row g-2">
+    @{
+        foreach (var product in Model.AdditionalProducts)
+        {
+            <div style="border: 1px solid #e2a100; padding: 10px;" class="d-flex position-relative">
+                <img src="../imgss/@{@product.Id}.jpeg" width="150" height="150" alt="...">
+                <div>
+                    <a style="color:black; position: relative; left: 10px" asp-controller="AdditionalProduct" asp-action="Index" asp-route-id="@product.Id">@product.Name</a>
+                    <div style="position:absolute; bottom:10px;">
+                        <h4 style="position: relative; left: 10px;"><span class="badge rounded-pill bg-warning text-dark">@product.Cost $</span></h4>
+                        <a style="position: relative; left: 10px" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" asp-route-url="@Context.Request.GetEncodedUrl()">
+                            <button type="button" class="btn btn-warning">В корзину</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+</div>
